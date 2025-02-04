@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Represents an abstract instruction.
  *
- * @author ...
+ * @author Queenie Lee
  */
 public abstract class Instruction {
     protected final Label label;
@@ -82,5 +82,11 @@ public abstract class Instruction {
                 getOperandsString());
     }
 
-    // TODO: Make sure the subclasses override .equals and .hashCode
+    // Completed: Make sure the subclasses override .equals and .hashCode
+
+    @Override
+    public abstract boolean equals(Object o);
+
+    @Override
+    public abstract int hashCode();
 }

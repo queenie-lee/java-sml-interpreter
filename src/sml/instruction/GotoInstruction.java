@@ -25,4 +25,14 @@ public class GotoInstruction extends Instruction {
     protected String getOperandsString() {
         return branchLabel.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }
