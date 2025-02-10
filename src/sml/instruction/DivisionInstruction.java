@@ -11,7 +11,7 @@ public class DivisionInstruction extends CalculateInstruction {
      * Constructor: an instruction with a label and an opcode
      * (opcode must be an operation of the language)
      *
-     * @param label  optional label (can be null)
+     * @param label optional label (can be null)
      */
     public DivisionInstruction(Label label) {
         super(label, OP_CODE);
@@ -28,11 +28,7 @@ public class DivisionInstruction extends CalculateInstruction {
     }
 
     @Override
-    protected int calculate(int value1, int value2) throws BadProgramError {
-        if (value2 != 0) {
-            return value1 / value2;
-        } else {
-            throw new BadProgramError("Attempted to divide by 0.");
-        }
+    protected int calculate(int value1, int value2) {
+        return value1 / value2;
     }
 }

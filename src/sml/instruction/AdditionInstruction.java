@@ -1,6 +1,9 @@
 package sml.instruction;
 
+import sml.BadProgramError;
 import sml.Label;
+
+import java.util.NoSuchElementException;
 
 public class AdditionInstruction extends CalculateInstruction {
 
@@ -29,6 +32,6 @@ public class AdditionInstruction extends CalculateInstruction {
 
     @Override
     protected int calculate(int value1, int value2) {
-        return value1 + value2;
+        return Math.addExact(value1, value2);
     }
 }

@@ -90,10 +90,10 @@ class CalculateInstructionTest {
                 "Expected execute(machine) to throw, but it didn't"
         );
 
-        assertTrue(thrown.getMessage().contains("divide by 0"));
+        assertTrue(thrown.getMessage().contains("/ by zero"));
     }
 
-    private static Stream<Arguments> argumentsForOverflowAndUnderflowTest() {
+    private static Stream<Arguments> argumentsForOverflowTest() {
         return Stream.of(
                 Arguments.of(new AdditionInstruction(null), Integer.MAX_VALUE, 10),
                 Arguments.of(new AdditionInstruction(null), Integer.MIN_VALUE, -10),
@@ -104,8 +104,8 @@ class CalculateInstructionTest {
         );
     }
     @ParameterizedTest
-    @MethodSource("argumentsForOverflowAndUnderflowTest")
-    void calculationResultIsAnOverflowOrUnderflowNumber (Instruction ins0, int value1, int value2) {
+    @MethodSource("argumentsForOverflowTest")
+    void calculationResultIsAnOverflowNumber (Instruction ins0, int value1, int value2) {
         Instruction ins1 = new PrintInstruction(null);
         Method m = new Method(new Method.Identifier("@main"),
                 List.of(), List.of(ins0, ins1));
@@ -121,8 +121,5 @@ class CalculateInstructionTest {
         );
 
         assertTrue(thrown.getMessage().contains("overflow"));
-
     }
-
-
 }

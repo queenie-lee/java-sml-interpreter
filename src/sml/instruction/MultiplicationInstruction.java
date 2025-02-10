@@ -28,6 +28,6 @@ public class MultiplicationInstruction extends CalculateInstruction {
 
     @Override
     protected int calculate(int value1, int value2) {
-        return value1 * value2;
+        return Math.multiplyExact(value1, value2);
     }
 }

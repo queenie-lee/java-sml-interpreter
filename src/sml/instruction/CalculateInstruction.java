@@ -33,12 +33,17 @@ public abstract class CalculateInstruction extends Instruction {
         int value1, value2;
         value1 = frame.pop();
         value2 = frame.pop();
-        int result = calculate(value1, value2);
+        int result;
+        try {
+            result = calculate(value1, value2);
+        } catch (ArithmeticException ex) {
+            throw new BadProgramError(ex.toString());
+        }
         frame.push(result);
         return Optional.of(frame.advance());
     }
 
-    protected abstract int calculate (int value1, int value2) throws BadProgramError;
+    protected abstract int calculate(int value1, int value2) throws ArithmeticException;
 
     /**
      * Returns a string representation of the operands.
