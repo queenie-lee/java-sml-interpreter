@@ -99,8 +99,12 @@ public class Frame {
                 .orElseThrow(() -> new VariableNotFoundException(identifier));
     }
 
-    public int pop() {
-        return stack.pop();
+    public int pop() throws BadProgramError {
+        try {
+            return stack.pop();
+        } catch (NoSuchElementException ex) {
+            throw new BadProgramError("Not enough values on the stack.");
+        }
     }
 
     public void push(int value) {

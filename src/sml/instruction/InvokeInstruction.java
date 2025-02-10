@@ -17,7 +17,7 @@ public class InvokeInstruction extends Instruction {
     }
 
     @Override
-    public Optional<Frame> execute(Machine machine) {
+    public Optional<Frame> execute(Machine machine) throws BadProgramError {
         return machine.newFrameForMethodInvocation(methodName);
     }
 

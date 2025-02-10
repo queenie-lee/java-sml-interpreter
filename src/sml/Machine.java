@@ -44,7 +44,11 @@ public final class Machine {
         program = SymbolTable.of(methods.stream()
                 .collect(Collectors.toMap(Method::name, m -> m)));
         frame = Optional.empty();
-        frame = newFrameForMethodInvocation(new Method.Identifier("@main"));
+        try {
+            frame = newFrameForMethodInvocation(new Method.Identifier("@main"));
+        } catch (BadProgramError ex) {
+            throw new AssertionError("Logic error. This should never happen while creating Frame for the Main method. " + ex);
+        }
     }
 
 

@@ -70,7 +70,7 @@ class CalculateInstructionTest {
                 "Expected execute(machine) to throw, but it didn't"
         );
 
-        assertTrue(thrown.getMessage().contains("less than two values on the stack"));
+        assertTrue(thrown.getMessage().contains("Not enough values on the stack."));
     }
 
     @Test

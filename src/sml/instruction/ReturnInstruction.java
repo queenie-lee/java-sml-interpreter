@@ -13,7 +13,7 @@ public class ReturnInstruction extends Instruction {
     }
 
     @Override
-    public Optional<Frame> execute(Machine machine) {
+    public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
         int value = frame.pop();
         Optional<Frame> optionalInvoker = frame.invoker();
