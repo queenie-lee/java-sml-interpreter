@@ -1,10 +1,8 @@
 package sml.instruction;
 
-import sml.Frame;
-import sml.Instruction;
-import sml.Label;
-import sml.Machine;
+import sml.*;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -29,17 +27,22 @@ public abstract class CalculateInstruction extends Instruction {
      * @param machine the machine the instruction runs on
      * @return the new frame with an update instruction index
      */
-    @Override
-    public Optional<Frame> execute(Machine machine) {
+    @Override // create BadProgramError Exception (custom) - look at PiJ
+    public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
-        int value1 = frame.pop();
-        int value2 = frame.pop();
+        int value1, value2;
+        try {
+            value1 = frame.pop();
+            value2 = frame.pop();
+        } catch (NoSuchElementException ex) {
+            throw new BadProgramError("Cannot calculate as there are less than two values on the stack.");
+        }
         int result = calculate(value1, value2);
         frame.push(result);
         return Optional.of(frame.advance());
     }
 
-    protected abstract int calculate (int value1, int value2);
+    protected abstract int calculate (int value1, int value2) throws BadProgramError;
 
     /**
      * Returns a string representation of the operands.

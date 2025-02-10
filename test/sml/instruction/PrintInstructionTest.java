@@ -27,7 +27,7 @@ public class PrintInstructionTest {
     }
 
     @Test
-    void printInstruction() {
+    void printInstruction() throws BadProgramError {
         Instruction ins0 = new PrintInstruction(null);
         Instruction ins1 = new ReturnInstruction(null);
 

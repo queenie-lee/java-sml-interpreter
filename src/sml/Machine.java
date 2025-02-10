@@ -31,7 +31,12 @@ public final class Machine {
             // TODO: Add exception handling for missing labels, etc.
             //       Produce user-friendly error messages.
             //       You may need to extend the functionality of the exception classes.
-            frame = instruction.execute(this);
+            try {
+                frame = instruction.execute(this);
+            } catch (BadProgramError ex) {
+                System.out.println("There is a problem with your program.");
+                ex.printMessage();
+            }
         }
     }
 

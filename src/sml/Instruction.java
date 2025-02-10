@@ -53,7 +53,7 @@ public abstract class Instruction {
      * @return the new frame with an update instruction index
      */
 
-    public abstract Optional<Frame> execute(Machine machine);
+    public abstract Optional<Frame> execute(Machine machine) throws BadProgramError;
 
     /**
      * Returns a string representation of the operands.

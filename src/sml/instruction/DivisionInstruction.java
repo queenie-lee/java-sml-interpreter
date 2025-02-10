@@ -1,5 +1,6 @@
 package sml.instruction;
 
+import sml.BadProgramError;
 import sml.Label;
 
 public class DivisionInstruction extends CalculateInstruction {
@@ -27,7 +28,11 @@ public class DivisionInstruction extends CalculateInstruction {
     }
 
     @Override
-    protected int calculate(int value1, int value2) {
-        return value1 / value2;
+    protected int calculate(int value1, int value2) throws BadProgramError {
+        if (value2 != 0) {
+            return value1 / value2;
+        } else {
+            throw new BadProgramError("Attempted to divide by 0.");
+        }
     }
 }

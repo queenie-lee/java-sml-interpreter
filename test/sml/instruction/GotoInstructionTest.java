@@ -27,7 +27,7 @@ class GotoInstructionTest {
     }
 
     @Test
-    void validGotoInstruction() {
+    void validGotoInstruction() throws BadProgramError {
         Instruction ins0 = new GotoInstruction(null, new Label("L1"));
         Instruction ins1 = new ReturnInstruction(null);
         Instruction ins2 = new ReturnInstruction(new Label("L1"));
