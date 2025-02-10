@@ -56,7 +56,7 @@ public final class Machine {
         return frame.get();
     }
 
-    public Optional<Frame> newFrameForMethodInvocation(Method.Identifier methodName) {
+    public Optional<Frame> newFrameForMethodInvocation(Method.Identifier methodName) throws BadProgramError {
         Method method = program.get(methodName)
                 .orElseThrow(() -> new MethodNotFoundException(methodName));
 
