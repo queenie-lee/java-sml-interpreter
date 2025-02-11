@@ -123,6 +123,14 @@ public final class Translator {
             case SubtractionInstruction.OP_CODE -> new SubtractionInstruction(label);
             case MultiplicationInstruction.OP_CODE -> new MultiplicationInstruction(label);
             case DivisionInstruction.OP_CODE -> new DivisionInstruction(label);
+            case CompareEqualInstruction.OP_CODE -> {
+                String s = scan();
+                yield new CompareEqualInstruction(label, new Label(s));
+            }
+            case CompareGreaterThanInstruction.OP_CODE -> {
+                String s = scan();
+                yield new CompareGreaterThanInstruction(label, new Label(s));
+            }
 
 
             // TODO: add code for all other types of instructions
