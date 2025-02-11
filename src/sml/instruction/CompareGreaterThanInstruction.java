@@ -2,6 +2,8 @@ package sml.instruction;
 
 import sml.Label;
 
+import java.util.Objects;
+
 public class CompareGreaterThanInstruction extends ComparisonInstruction {
     public static final String OP_CODE = "if_cmpgt";
 
@@ -16,7 +18,7 @@ public class CompareGreaterThanInstruction extends ComparisonInstruction {
      */
     public CompareGreaterThanInstruction(Label label, Label branchLabel) {
         super(label, OP_CODE, branchLabel);
-        this.hashCodeInt = label.hashCode() + OP_CODE.hashCode();
+        this.hashCodeInt = Objects.nonNull(label) ? label.hashCode() + OP_CODE.hashCode() : OP_CODE.hashCode();
     }
 
     @Override

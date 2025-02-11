@@ -2,6 +2,8 @@ package sml.instruction;
 
 import sml.Label;
 
+import java.util.Objects;
+
 public class CompareEqualInstruction extends ComparisonInstruction{
 
     public static final String OP_CODE = "if_cmpeq";
@@ -16,7 +18,7 @@ public class CompareEqualInstruction extends ComparisonInstruction{
      */
     public CompareEqualInstruction(Label label, Label branchLabel) {
         super(label, OP_CODE, branchLabel);
-        this.hashCodeInt = label.hashCode() + OP_CODE.hashCode() + branchLabel.hashCode();
+        this.hashCodeInt = Objects.nonNull(label) ? label.hashCode() + OP_CODE.hashCode() : OP_CODE.hashCode();
     }
 
     @Override
