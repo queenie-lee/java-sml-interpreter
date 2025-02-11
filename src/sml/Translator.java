@@ -119,6 +119,10 @@ public final class Translator {
                 yield new InvokeInstruction(label, new Method.Identifier(s));
             }
             case PrintInstruction.OP_CODE -> new PrintInstruction(label);
+            case AdditionInstruction.OP_CODE -> new AdditionInstruction(label);
+            case SubtractionInstruction.OP_CODE -> new SubtractionInstruction(label);
+            case MultiplicationInstruction.OP_CODE -> new MultiplicationInstruction(label);
+            case DivisionInstruction.OP_CODE -> new DivisionInstruction(label);
 
 
             // TODO: add code for all other types of instructions
