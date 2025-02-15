@@ -46,8 +46,8 @@ class CalculateInstructionTest {
 
         machine.frame().push(1000);
         machine.frame().push(100);
-        machine.frame().push(2);
         machine.frame().push(3);
+        machine.frame().push(2);
         var result = ins0.execute(machine);
         var value = result.get().pop();
 

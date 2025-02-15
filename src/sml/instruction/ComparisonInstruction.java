@@ -29,8 +29,8 @@ public abstract class ComparisonInstruction extends Instruction  {
     @Override
     public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
-        int value1 = frame.pop();
         int value2 = frame.pop();
+        int value1 = frame.pop();
         boolean result = compare(value1, value2);
         return result ? Optional.of(frame.jumpTo(branchLabel)) : Optional.of(frame.advance());
     }

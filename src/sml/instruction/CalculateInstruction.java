@@ -31,8 +31,8 @@ public abstract class CalculateInstruction extends Instruction {
     public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
         int value1, value2;
-        value1 = frame.pop();
         value2 = frame.pop();
+        value1 = frame.pop();
         int result;
         try {
             result = calculate(value1, value2);

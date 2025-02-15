@@ -69,8 +69,8 @@ public class ComparisonInstructionTest {
                 List.of(), List.of(ins0, ins1, ins2));
         machine.setProgram(List.of(m));
 
+        machine.frame().push(value1);
         machine.frame().push(value2);
-        machine.frame().push(value1); // flipped order so that value1 is at the top of the stack
 
         LabelNotFoundException ex = assertThrows(LabelNotFoundException.class, () ->  ins0.execute(machine));
         // TODO: improve the test by adding fields for the label and method in the exception class
