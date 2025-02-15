@@ -5,7 +5,6 @@ import sml.Label;
 
 public class DivisionInstruction extends CalculateInstruction {
     public static final String OP_CODE = "div";
-    private static final int hashCodeInt = OP_CODE.hashCode();
 
     /**
      * Constructor: an instruction with a label and an opcode
@@ -15,16 +14,6 @@ public class DivisionInstruction extends CalculateInstruction {
      */
     public DivisionInstruction(Label label) {
         super(label, OP_CODE);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return this.getClass().equals(o.getClass());
-    }
-
-    @Override
-    public int hashCode() {
-        return hashCodeInt;
     }
 
     @Override

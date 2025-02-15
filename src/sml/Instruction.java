@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public abstract class Instruction {
     protected final Label label;
     protected final String opcode;
+    private Integer hashCodeInt;
 
     /**
      * Constructor: an instruction with a label and an opcode
@@ -82,11 +83,28 @@ public abstract class Instruction {
                 getOperandsString());
     }
 
-    // Completed: Make sure the subclasses override .equals and .hashCode
+    /* equals and hashCode methods are found in the Instruction abstract class below, rather than in subclasses.
+    This decision was made to remove the amount of boilerplate code in subclasses. */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Instruction otherInstruction) {
+            /* Instructions are uniquely identified by their toString() representation, as it contains
+            label, opcode and parameter-list. Therefore, two Instruction objects are equal if and only if
+            they have the same toString(). */
+            return o.toString().equals(otherInstruction.toString());
+        }
+        return false;
+    }
 
     @Override
-    public abstract boolean equals(Object o);
-
-    @Override
-    public abstract int hashCode();
+    public int hashCode() {
+        /* hashCode is generated when the method is first invoked, subsequent calls will simply return
+        the stored variable, improving performance */
+        if (hashCodeInt == null) {
+            /* Analogous to the equals method above, the toString() representation uniquely identifies
+            every Instruction. */
+            this.hashCodeInt = this.toString().hashCode();
+        }
+        return hashCodeInt;
+    }
 }

@@ -1,9 +1,6 @@
 package sml;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // TODO: write JavaDoc for the class

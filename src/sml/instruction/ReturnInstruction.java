@@ -29,14 +29,4 @@ public class ReturnInstruction extends Instruction {
     protected String getOperandsString() {
         return "";
     }
-
-    @Override
-    public boolean equals(Object o) {
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

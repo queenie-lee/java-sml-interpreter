@@ -25,14 +25,4 @@ public class InvokeInstruction extends Instruction {
     protected String getOperandsString() {
         return "@" + methodName;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

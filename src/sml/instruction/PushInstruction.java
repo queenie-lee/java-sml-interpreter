@@ -8,7 +8,6 @@ public class PushInstruction extends Instruction {
     public static final String OP_CODE = "push";
 
     private final int value;
-    private final int hashCodeInt;
     /**
      * Constructor: an instruction with a label and an opcode
      * (opcode must be an operation of the language)
@@ -18,7 +17,6 @@ public class PushInstruction extends Instruction {
     public PushInstruction(Label label, int value) {
         super(label, OP_CODE);
         this.value = value;
-        this.hashCodeInt = this.value + OP_CODE.hashCode();
     }
 
     /**
@@ -31,7 +29,7 @@ public class PushInstruction extends Instruction {
     public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
         frame.push(value);
-        System.out.println(value);
+//        System.out.println(value); // TODO: used for debugging - delete before submission
         return Optional.of(frame.advance());
     }
 
@@ -46,16 +44,4 @@ public class PushInstruction extends Instruction {
         return String.valueOf(value);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof PushInstruction otherInstruction) {
-            return this.value == otherInstruction.value;
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return hashCodeInt;
-    }
 }
