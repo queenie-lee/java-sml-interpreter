@@ -131,6 +131,18 @@ public final class Translator {
                 String s = scan();
                 yield new CompareGreaterThanInstruction(label, new Label(s));
             }
+            case LoadInstruction.OP_CODE -> {
+                String s = scan();
+                yield new LoadInstruction(label, s);
+            }
+            case StoreInstruction.OP_CODE -> {
+                String s = scan();
+                yield new StoreInstruction(label, s);
+            }
+            case PushInstruction.OP_CODE -> {
+                String s = scan();
+                yield new PushInstruction(label, Integer.parseInt(s));
+            }
 
 
             // TODO: add code for all other types of instructions
