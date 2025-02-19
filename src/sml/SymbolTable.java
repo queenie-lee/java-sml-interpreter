@@ -2,6 +2,7 @@ package sml;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // TODO: write JavaDoc for the class
 
@@ -45,7 +46,9 @@ public class SymbolTable<K, V> {
      */
     @Override
     public String toString() {
-        // TODO: Implement the method using the Stream API.
-        return "";
+        return map.entrySet()
+                .stream()
+                .map(m -> m.getKey().toString() + " -> " + m.getValue().toString())
+                .collect(Collectors.joining(", ", "[", "]"));
     }
 }

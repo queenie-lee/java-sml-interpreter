@@ -2,10 +2,10 @@ package sml;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 // TODO: Write JavaDoc for the class
 
@@ -85,14 +85,46 @@ public class Method {
         return localVariables;
     }
 
+    /**
+     * Returns a string representation of the method.
+     *      * It consists of
+     *      *    - the optional label followed by a colon,
+     *      *    - the list of arguments in parentheses followed by a colon,
+     *      *    - the list of instructions - maximum defined by INST_LIMIT.
+     *      * Format: Method {name} (arg1, arg2, arg3): inst1, inst2, ...
+     *
+     * @return a string representation of the method
+     */
     @Override
     public String toString() {
-        // TODO: Provide an implementation (using Stream API)
-        return "";
+        final int INST_LIMIT = 2;
+        String nameString = name.toString();
+        String argsString = arguments.stream()
+                .map(Variable.Identifier::toString)
+                .collect(Collectors.joining(", ", "(", ")"));
+        String instructionsString = instructions.stream()
+                .map(Instruction::toString)
+                .limit(INST_LIMIT)
+                .collect(Collectors.joining(", "));
+        if (instructions.size() > INST_LIMIT) {
+            instructionsString += ", ...";
+        }
+        return "Method " + nameString + " " + argsString + ": " + instructionsString;
     }
 
-    // TODO: Override .equals and .hashCode
-    //       (use pattern matching for instanceof)
-    // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
+        if (object instanceof Method method) {
+            return Objects.equals(name, method.name) && Objects.equals(arguments, method.arguments) && Objects.equals(instructions, method.instructions);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, arguments, instructions);
+    }
 
 }

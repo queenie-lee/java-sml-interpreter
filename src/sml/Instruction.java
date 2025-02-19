@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public abstract class Instruction {
     protected final Label label;
     protected final String opcode;
-    private Integer hashCodeInt;
+    private Integer hashCodeInt = null;
 
     /**
      * Constructor: an instruction with a label and an opcode
@@ -78,6 +78,7 @@ public abstract class Instruction {
     @Override
     public String toString() {
         return String.join(" ",
+                // There is an extra space at the beginning of each instruction if no label exists.
                 optionalLabel().map(s -> s + ":").orElse(""),
                 opcode(),
                 getOperandsString());
