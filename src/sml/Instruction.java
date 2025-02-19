@@ -100,7 +100,7 @@ public abstract class Instruction {
     @Override
     public int hashCode() {
         /* hashCode is generated when the method is first invoked, subsequent calls will simply return
-        the stored variable, improving performance */
+        the stored variable, improving performance. */
         if (hashCodeInt == null) {
             /* Analogous to the equals method above, the toString() representation uniquely identifies
             every Instruction. */
