@@ -1,7 +1,4 @@
-import sml.Instruction;
-import sml.Machine;
-import sml.Method;
-import sml.Translator;
+import sml.*;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -27,6 +24,10 @@ public class RunSml {
             System.out.println("Beginning program execution.");
             m.execute();
             System.out.println("Ending program execution.");
+        }
+        catch (BadProgramError e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
         catch (IOException e) {
             System.out.println("Error reading the program from " + args[0]);

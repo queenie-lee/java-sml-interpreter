@@ -1,14 +1,13 @@
 package sml;
 
-import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class ....
@@ -46,7 +45,30 @@ public final class Translator {
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
-    public Collection<Method> readAndTranslate(String fileName) throws IOException {
+    private static final List<Class<?>> instructionClasses = Stream.of(
+            "sml.instruction.AdditionInstruction"
+            ,"sml.instruction.CompareEqualInstruction"
+            ,"sml.instruction.CompareGreaterThanInstruction"
+            ,"sml.instruction.DivisionInstruction"
+            ,"sml.instruction.GotoInstruction"
+            ,"sml.instruction.InvokeInstruction"
+            ,"sml.instruction.LoadInstruction"
+            ,"sml.instruction.MultiplicationInstruction"
+            ,"sml.instruction.PrintInstruction"
+            ,"sml.instruction.PushInstruction"
+            ,"sml.instruction.ReturnInstruction"
+            ,"sml.instruction.StoreInstruction"
+            ,"sml.instruction.SubtractionInstruction")
+            .map( i-> {
+                try {
+                    return Class.forName(i);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            })
+            .collect(Collectors.toList());
+
+    public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
 
         Collection<Method> methods = new ArrayList<>();
 
@@ -103,59 +125,73 @@ public final class Translator {
      * @param label the instruction label
      * @return the new instruction
      */
-    private Instruction getInstruction(Label label) {
+    private Instruction getInstruction(Label label) throws BadProgramError {
+        Field[] fields;
         String opcode = scan();
+
         if (opcode.isEmpty())
             return null;
-
-        return switch (opcode) {
-            case GotoInstruction.OP_CODE -> {
-                String s = scan();
-                yield new GotoInstruction(label, new Label(s));
+        /*
+        1. Iterate through instructionClassList
+        2. Get all public and private fields
+        3. Compare opcode with the one within the class - when matched, instantiate
+        * */
+        String OP_CODE = "OP_CODE";
+        for (Class<?> instruction : instructionClasses) {
+            fields = instruction.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                if (field.getName().equals(OP_CODE)) {
+                    String OP_CODEval;
+                    try {
+                        OP_CODEval = String.valueOf(field.get(null));
+                    } catch (IllegalArgumentException | IllegalAccessException e)
+                    {
+                        // Should not happen, as all Instruction implementations must have this field
+                        throw new RuntimeException(e);
+                    }
+                    if (OP_CODEval.equals(opcode)){
+                        return builder(label, instruction);
+                    }
+                }
             }
-            case ReturnInstruction.OP_CODE -> new ReturnInstruction(label);
-            case InvokeInstruction.OP_CODE -> {
-                String s = scan();
-                yield new InvokeInstruction(label, new Method.Identifier(s));
-            }
-            case PrintInstruction.OP_CODE -> new PrintInstruction(label);
-            case AdditionInstruction.OP_CODE -> new AdditionInstruction(label);
-            case SubtractionInstruction.OP_CODE -> new SubtractionInstruction(label);
-            case MultiplicationInstruction.OP_CODE -> new MultiplicationInstruction(label);
-            case DivisionInstruction.OP_CODE -> new DivisionInstruction(label);
-            case CompareEqualInstruction.OP_CODE -> {
-                String s = scan();
-                yield new CompareEqualInstruction(label, new Label(s));
-            }
-            case CompareGreaterThanInstruction.OP_CODE -> {
-                String s = scan();
-                yield new CompareGreaterThanInstruction(label, new Label(s));
-            }
-            case LoadInstruction.OP_CODE -> {
-                String s = scan();
-                yield new LoadInstruction(label, s);
-            }
-            case StoreInstruction.OP_CODE -> {
-                String s = scan();
-                yield new StoreInstruction(label, s);
-            }
-            case PushInstruction.OP_CODE -> {
-                String s = scan();
-                yield new PushInstruction(label, Integer.parseInt(s));
-            }
-
-
-            // TODO: add code for all other types of instructions
-
-            // TODO: Then, replace the switch by using the Reflection API
-
+        }
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)
+        return null;
+    }
+    public Instruction builder(Label label, Class<?> className) throws BadProgramError {
 
-            default -> {
-                yield  null;
-            } //new IllegalArgumentException("Unknown instruction: " + opcode);
-        };
+        Constructor<?>[] declaredConstructors = className.getDeclaredConstructors();
+        int numParams = declaredConstructors[0].getParameterCount(); // assuming that there is only one constructor in the class.
+//        for (Constructor<?> candidateConstructor : className.getConstructors()) {
+            try {
+                Object[] parameters = new Object[numParams];
+                parameters[0] = label;
+                Class<?>[] paramTypes = declaredConstructors[0].getParameterTypes();
+                for (int i = 1; i < numParams; i++) {
+                    Class<?> paramObjectType = wrap(paramTypes[i]);
+                    Constructor<?> stringToParamFunction = paramObjectType.getConstructor(String.class);
+                    String s = scan();
+                    parameters[i] = stringToParamFunction.newInstance(s);
+                }
+                return (Instruction) declaredConstructors[0].newInstance(parameters);
+            }
+            catch (Exception e) {
+                throw new BadProgramError("Unable to build the Instruction " + className.getName() + ".\n" +
+                        "It could be the arguments do not match the parameter type required," +
+                        "or null arguments are being passed into a non-null parameter.");
+            }
+//            }
+    }
+
+    private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPERS = Map.of(
+            boolean.class, Boolean.class,
+            int.class, Integer.class,
+            void.class, Void.class);
+
+    private static Class<?> wrap(Class<?> theClass) {
+        return PRIMITIVE_WRAPPERS.getOrDefault(theClass, theClass);
     }
 
     private String getLabel() {
