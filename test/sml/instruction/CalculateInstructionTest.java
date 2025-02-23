@@ -81,8 +81,8 @@ class CalculateInstructionTest {
                 List.of(), List.of(ins0, ins1));
         machine.setProgram(List.of(m));
 
-        machine.frame().push(0);
         machine.frame().push(3);
+        machine.frame().push(0);
 
         BadProgramError thrown = assertThrows(
                 BadProgramError.class,

@@ -33,8 +33,8 @@ public class ComparisonInstructionTest {
         return Stream.of(
                 Arguments.of(new CompareEqualInstruction(null, new Label ("L1")), 10, 10, 2),
                 Arguments.of(new CompareEqualInstruction(null, new Label ("L1")), 10, -10, 1),
-                Arguments.of(new CompareGreaterThanInstruction(null, new Label ("L1")), 10, -10, 2),
-                Arguments.of(new CompareGreaterThanInstruction(null, new Label ("L1")), -10, 10, 1)
+                Arguments.of(new CompareGreaterThanInstruction(null, new Label ("L1")), 10, -10, 1),
+                Arguments.of(new CompareGreaterThanInstruction(null, new Label ("L1")), -10, 10, 2)
         );
     }
 
