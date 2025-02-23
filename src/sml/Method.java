@@ -37,7 +37,7 @@ public class Method {
         this.instructions = List.copyOf(instructions);
 
         Map<Variable.Identifier, Long> argumentOccurrences = this.arguments.stream()
-                .collect(Collectors.groupingBy(v -> v, Collectors.counting()));
+                .collect(Collectors.groupingBy(v -> v, Collectors.counting())); // counting occurrences to avoid duplicate arguments
 
         if (argumentOccurrences.entrySet().stream().anyMatch(e -> e.getValue() > 1))
             throw new IllegalArgumentException("Duplicate arguments: " +
@@ -48,7 +48,7 @@ public class Method {
 
         this.localVariables = this.instructions.stream()
                 .flatMap(Instruction::variables)
-                .filter(v -> !argumentOccurrences.containsKey(v))
+                .filter(v -> !argumentOccurrences.containsKey(v)) // keep all v (variable.identifiers) where v is not in argumentOccurrences
                 .collect(Collectors.toSet());
 
         // must contain at least one instruction (at least a return instruction)
