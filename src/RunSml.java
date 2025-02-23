@@ -16,8 +16,10 @@ public class RunSml {
         }
 
         try {
-            Translator t = new Translator();
-            InstructionFactory instructionFactory = new SMLInstructionFactory();
+            InterpreterFactory factory = InterpreterFactory.getInstance();
+
+            Translator t = factory.getTranslator();
+            InstructionFactory instructionFactory = factory.getInstructionFactory();
             t.setInstructionFactory(instructionFactory);
             Collection<Method> instructions = t.readAndTranslate(args[0]);
             Machine m = new Machine();

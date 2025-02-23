@@ -43,6 +43,10 @@ public final class Translator {
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
+    public void setInstructionFactory(InstructionFactory factory) {
+        this.factory = factory;
+    }
+
     public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
         if (factory == null) {
             throw new RuntimeException(
@@ -116,9 +120,6 @@ public final class Translator {
             //       to work with different sets of opcodes (different CPUs)
     }
 
-    public void setInstructionFactory(InstructionFactory factory) {
-        this.factory = factory;
-    }
 //    public Instruction builder(Label label, Class<?> className) throws BadProgramError {
 //
 //        Constructor<?>[] declaredConstructors = className.getDeclaredConstructors();
