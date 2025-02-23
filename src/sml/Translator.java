@@ -2,13 +2,8 @@ package sml;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.sql.Array;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This class ....
@@ -43,10 +38,16 @@ public final class Translator {
         }
     }
 
+    private InstructionFactory factory;
+
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
     public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
+        if (factory == null) {
+            throw new RuntimeException(
+                    "You must set the property factory of class: " + getClass().getName());
+        }
 
         Collection<Method> methods = new ArrayList<>();
 
@@ -109,10 +110,14 @@ public final class Translator {
             String word = scan();
             instruction.add(word);
         }
-        return InstructionFactory.createInstruction(label, instruction);
+        return factory.createInstruction(label, instruction);
 
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)
+    }
+
+    public void setInstructionFactory(InstructionFactory factory) {
+        this.factory = factory;
     }
 //    public Instruction builder(Label label, Class<?> className) throws BadProgramError {
 //
