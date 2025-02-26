@@ -23,6 +23,11 @@ public final class InterpreterFactory {
             try (var fis = InterpreterFactory.class.getResourceAsStream("/beans.properties")) {
                 props.load(fis);
             }
+            /*The aim of Part II is to replace the switch statement in Translator.getInstruction with
+            some code based on the Reflection API that avoids referring to the instruction class names
+            directly (in particular, does not use the new operator). This would allow one to introduce
+            new instruction sets without changing the code of Translator or any other core classes.
+            * */
             String translatorClass = props.getProperty("translator.class");
             translator = (Translator) newInstanceOf(translatorClass);
 
