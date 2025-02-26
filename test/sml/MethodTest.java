@@ -1,15 +1,19 @@
 package sml;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sml.instruction.LoadInstruction;
 import sml.instruction.PrintInstruction;
 import sml.instruction.PushInstruction;
+import sml.instruction.ReturnInstruction;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MethodTest {
+
     @Test
     void toStringTest() {
         Instruction ins0 = new LoadInstruction(null, "m");
@@ -19,6 +23,6 @@ public class MethodTest {
         Method m = new Method(new Method.Identifier("@test"),
                 List.of(new Variable.Identifier("m"), new Variable.Identifier("n")),
                 List.of(ins0, ins1, ins2));
-        assertEquals(m.toString(), "Method test (m, n):  load m, L9: push 70, ...");
+        assertEquals("Method test (m, n):  load m, L9: push 70, ...", m.toString());
     }
 }

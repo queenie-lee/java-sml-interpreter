@@ -85,9 +85,10 @@ public final class Machine {
      * @return pretty formatted version of the code.
      */
     @Override
-    public String toString() {
-        // TODO: implement
-        return "";
+    public String toString() { //TODO: fix toString?
+        return "Machine: " +
+                "Program: " + program.toString() +
+                ", Frame: " + frame.toString();
     }
 
 }

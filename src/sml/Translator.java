@@ -120,31 +120,6 @@ public final class Translator {
             //       to work with different sets of opcodes (different CPUs)
     }
 
-//    public Instruction builder(Label label, Class<?> className) throws BadProgramError {
-//
-//        Constructor<?>[] declaredConstructors = className.getDeclaredConstructors();
-//        int numParams = declaredConstructors[0].getParameterCount(); // assuming that there is only one constructor in the class.
-////        for (Constructor<?> candidateConstructor : className.getConstructors()) {
-//            try {
-//                Object[] parameters = new Object[numParams];
-//                parameters[0] = label;
-//                Class<?>[] paramTypes = declaredConstructors[0].getParameterTypes();
-//                for (int i = 1; i < numParams; i++) {
-//                    Class<?> paramObjectType = wrap(paramTypes[i]);
-//                    Constructor<?> stringToParamFunction = paramObjectType.getConstructor(String.class);
-//                    String s = scan();
-//                    parameters[i] = stringToParamFunction.newInstance(s);
-//                }
-//                return (Instruction) declaredConstructors[0].newInstance(parameters);
-//            }
-//            catch (Exception e) {
-//                throw new BadProgramError("Unable to build the Instruction " + className.getName() + ".\n" +
-//                        "It could be the arguments do not match the parameter type required," +
-//                        "or null arguments are being passed into a non-null parameter.");
-//            }
-////            }
-//    }
-
     private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPERS = Map.of(
             boolean.class, Boolean.class,
             int.class, Integer.class,
