@@ -38,17 +38,17 @@ public final class Translator {
         }
     }
 
-    private InstructionFactory factory;
+    private InstructionFactory instructionFactory;
 
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
     public void setInstructionFactory(InstructionFactory factory) {
-        this.factory = factory;
+        this.instructionFactory = factory;
     }
 
     public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
-        if (factory == null) {
+        if (instructionFactory == null) {
             throw new RuntimeException(
                     "You must set the property factory of class: " + getClass().getName());
         }
@@ -114,7 +114,7 @@ public final class Translator {
             String word = scan();
             instruction.add(word);
         }
-        return factory.createInstruction(label, instruction);
+        return instructionFactory.createInstruction(label, instruction);
 
             // TODO: Next, use dependency injection to allow this machine class
             //       to work with different sets of opcodes (different CPUs)

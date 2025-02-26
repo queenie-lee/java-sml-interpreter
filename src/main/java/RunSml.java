@@ -24,11 +24,11 @@ public class RunSml {
         }
 
         try {
-            BeanFactory factory = getBeanFactory();
+            var factory = getBeanFactory();
 
-            Translator t = (Translator) factory.getBean("translator");
-            InstructionFactory instructionFactory = (InstructionFactory) factory.getBean("instruction-factory");
-            t.setInstructionFactory(instructionFactory);
+            var t = (Translator) factory.getBean("translator");
+//            InstructionFactory instructionFactory = (InstructionFactory) factory.getBean("instruction-factory");
+//            t.setInstructionFactory(instructionFactory);
 
             Collection<Method> instructions = t.readAndTranslate(args[0]);
             Machine m = new Machine();
@@ -48,9 +48,9 @@ public class RunSml {
     }
 
     private static BeanFactory getBeanFactory() throws IOException {
-        DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
-        PropertiesBeanDefinitionReader rdr = new PropertiesBeanDefinitionReader(factory);
-        Properties props = new Properties();
+        var factory = new DefaultListableBeanFactory();
+        var rdr = new PropertiesBeanDefinitionReader(factory);
+        var props = new Properties();
         try (var fis = RunSml.class.getResourceAsStream("/beans")) {
             props.load(fis);
         }
