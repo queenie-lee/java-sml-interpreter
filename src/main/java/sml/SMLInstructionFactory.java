@@ -14,28 +14,12 @@ public class SMLInstructionFactory implements InstructionFactory {
             int.class, Integer.class,
             void.class, Void.class);
 
-    private static final List<Class<?>> instructionClasses = Stream.of(
-                    "sml.instruction.AdditionInstruction"
-                    ,"sml.instruction.CompareEqualInstruction"
-                    ,"sml.instruction.CompareGreaterThanInstruction"
-                    ,"sml.instruction.DivisionInstruction"
-                    ,"sml.instruction.GotoInstruction"
-                    ,"sml.instruction.InvokeInstruction"
-                    ,"sml.instruction.LoadInstruction"
-                    ,"sml.instruction.MultiplicationInstruction"
-                    ,"sml.instruction.PrintInstruction"
-                    ,"sml.instruction.PushInstruction"
-                    ,"sml.instruction.ReturnInstruction"
-                    ,"sml.instruction.StoreInstruction"
-                    ,"sml.instruction.SubtractionInstruction")
-            .map( i-> {
-                try {
-                    return Class.forName(i);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            })
-            .collect(Collectors.toList());
+    private final List<Class<?>> instructionClasses;
+
+    public SMLInstructionFactory(List<Class<?>> instructionClasses) {
+        this.instructionClasses = instructionClasses;
+    }
+
     @Override
     public Instruction createInstruction(Label label, List<String> programInstruction) throws BadProgramError {
         Field[] fields;

@@ -1,4 +1,0 @@
-translator.(class)=sml.Translator
-instruction-factory.(class)=sml.SMLInstructionFactory
-
-translator.instructionFactory(ref)=instruction-factory

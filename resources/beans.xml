@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="translator" class="sml.Translator">
+        <property name="instructionFactory" ref="instruction-factory"/>
+    </bean>
+    <bean id="instruction-factory" class="sml.SMLInstructionFactory">
+        <constructor-arg>
+            <list>
+                <value>sml.instruction.AdditionInstruction</value>
+                <value>sml.instruction.CompareEqualInstruction</value>
+                <value>sml.instruction.CompareGreaterThanInstruction</value>
+                <value>sml.instruction.DivisionInstruction</value>
+                <value>sml.instruction.GotoInstruction</value>
+                <value>sml.instruction.InvokeInstruction</value>
+                <value>sml.instruction.LoadInstruction</value>
+                <value>sml.instruction.MultiplicationInstruction</value>
+                <value>sml.instruction.PrintInstruction</value>
+                <value>sml.instruction.PushInstruction</value>
+                <value>sml.instruction.ReturnInstruction</value>
+                <value>sml.instruction.StoreInstruction</value>
+                <value>sml.instruction.SubtractionInstruction</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

@@ -1,14 +1,11 @@
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sml.*;
 
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Properties;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 
 
 public class RunSml {
@@ -24,11 +21,9 @@ public class RunSml {
         }
 
         try {
-            var factory = getBeanFactory();
+            BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
 
             var t = (Translator) factory.getBean("translator");
-//            InstructionFactory instructionFactory = (InstructionFactory) factory.getBean("instruction-factory");
-//            t.setInstructionFactory(instructionFactory);
 
             Collection<Method> instructions = t.readAndTranslate(args[0]);
             Machine m = new Machine();
@@ -45,17 +40,5 @@ public class RunSml {
         catch (IOException e) {
             System.out.println("Error reading the program from " + args[0]);
         }
-    }
-
-    private static BeanFactory getBeanFactory() throws IOException {
-        var factory = new DefaultListableBeanFactory();
-        var rdr = new PropertiesBeanDefinitionReader(factory);
-        var props = new Properties();
-        try (var fis = RunSml.class.getResourceAsStream("/beans")) {
-            props.load(fis);
-        }
-        rdr.registerBeanDefinitions(props);
-
-        return factory;
     }
 }
