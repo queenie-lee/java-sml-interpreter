@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * This class ....
@@ -12,6 +14,7 @@ import java.util.*;
  *
  * @author ...
  */
+@Component("translator")
 public final class Translator {
 
     // line contains the characters in the current line that's not been processed yet
@@ -38,20 +41,13 @@ public final class Translator {
         }
     }
 
-    private InstructionFactory instructionFactory;
+    @Autowired
+    private InstructionFactory instructionFactory = null;
 
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
-    public void setInstructionFactory(InstructionFactory factory) {
-        this.instructionFactory = factory;
-    }
-
     public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
-        if (instructionFactory == null) {
-            throw new RuntimeException(
-                    "You must set the property factory of class: " + getClass().getName());
-        }
 
         Collection<Method> methods = new ArrayList<>();
 
