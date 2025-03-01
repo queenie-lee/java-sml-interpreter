@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author ...
+ * @author Queenie Lee
  */
 @Component("translator")
-public final class Translator {
+public final class SMLTranslator implements TranslatorFactory {
 
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
@@ -111,18 +111,6 @@ public final class Translator {
             instruction.add(word);
         }
         return instructionFactory.createInstruction(label, instruction);
-
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
-    }
-
-    private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPERS = Map.of(
-            boolean.class, Boolean.class,
-            int.class, Integer.class,
-            void.class, Void.class);
-
-    private static Class<?> wrap(Class<?> theClass) {
-        return PRIMITIVE_WRAPPERS.getOrDefault(theClass, theClass);
     }
 
     private String getLabel() {
