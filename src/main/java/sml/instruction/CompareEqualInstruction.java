@@ -4,7 +4,7 @@ import sml.Label;
 
 import java.util.Objects;
 
-public class CompareEqualInstruction extends ComparisonInstruction{
+public non-sealed class CompareEqualInstruction extends ComparisonInstruction{
 
     public static final String OP_CODE = "if_cmpeq";
 
@@ -19,8 +19,8 @@ public class CompareEqualInstruction extends ComparisonInstruction{
         super(label, OP_CODE, branchLabel);
     }
 
-    @Override
-    protected boolean compare(int value1, int value2) {
-        return value1 == value2;
-    }
+//    @Override
+//    protected boolean compare(int value1, int value2) {
+//        return value1 == value2;
+//    }
 }

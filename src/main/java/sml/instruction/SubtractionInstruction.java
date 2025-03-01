@@ -2,7 +2,7 @@ package sml.instruction;
 
 import sml.Label;
 
-public class SubtractionInstruction extends CalculateInstruction {
+public non-sealed class SubtractionInstruction extends CalculateInstruction {
     public static final String OP_CODE = "sub";
 
     /**
@@ -13,10 +13,5 @@ public class SubtractionInstruction extends CalculateInstruction {
      */
     public SubtractionInstruction(Label label) {
         super(label, OP_CODE);
-    }
-
-    @Override
-    protected int calculate(int value1, int value2) {
-        return Math.subtractExact(value1,value2);
     }
 }

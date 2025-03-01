@@ -2,13 +2,17 @@ package sml.instruction;
 
 import sml.*;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Calculate Instruction is an abstract class for all calculation-type subclasses.
  */
-public abstract class CalculateInstruction extends Instruction {
+public sealed abstract class CalculateInstruction extends Instruction
+        permits AdditionInstruction, DivisionInstruction, MultiplicationInstruction, SubtractionInstruction {
+
+    int value1;
+    int value2;
 
     /**
      * Constructor: an instruction with a label and an opcode
@@ -30,12 +34,12 @@ public abstract class CalculateInstruction extends Instruction {
     @Override // create BadProgramError Exception (custom) - look at PiJ
     public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
-        int value1, value2;
-        value2 = frame.pop();
-        value1 = frame.pop();
+        CalculateInstruction instruction = this;
+        this.value2 = frame.pop();
+        this.value1 = frame.pop();
         int result;
         try {
-            result = calculate(value1, value2);
+            result = calculate.apply(instruction);
         } catch (ArithmeticException ex) {
             throw new BadProgramError(ex.toString());
         }
@@ -43,7 +47,13 @@ public abstract class CalculateInstruction extends Instruction {
         return Optional.of(frame.advance());
     }
 
-    protected abstract int calculate(int value1, int value2) throws ArithmeticException;
+    Function<CalculateInstruction,Integer> calculate = c ->
+            switch (c) {
+                case AdditionInstruction a -> Math.addExact(a.value1, a.value2);
+                case SubtractionInstruction s -> Math.subtractExact(s.value1,s.value2);
+                case MultiplicationInstruction m -> Math.multiplyExact(m.value1, m.value2);
+                case DivisionInstruction d -> d.value1 / d.value2;
+            };
 
     /**
      * Returns a string representation of the operands.
