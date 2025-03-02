@@ -4,8 +4,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// TODO: write JavaDoc for the class
-
+/**
+ * Used to store the program's parameters and their corresponding values.
+ *
+ * @param <K> the parameter
+ * @param <V> the value of the parameter
+ * @author Queenie Lee
+ */
 public class SymbolTable<K, V> {
     private final Map<K, V> map;
 
@@ -15,7 +20,7 @@ public class SymbolTable<K, V> {
 
     /**
      * Constructs a new symbol table from a given map.
-     * Note tha the iteration order of entries in the map is not preserved.
+     * Note that the iteration order of entries in the map is not preserved.
      *
      * @param map a map containing entries
      * @return a new symbol table containing the entries of the map
