@@ -2,10 +2,13 @@ package sml;
 
 import java.util.Objects;
 
-// TODO: What are the benefits of using this record class?
-//       Compare this approach with using class String instead of
-//       Variable.Identifier, Method.Identifier and Label
-
+/**
+ * Used as an indicator for other instructions to "jump" to a particular label.
+ *
+ * The label name is wrapped within the Label record class, ensuring type safety.
+ * This provides better code readability and ensures related errors can be caught at compile time.
+ * @param label label, a sequence of non-whitespace characters
+ */
 public record Label(String label) {
 
     public Label {

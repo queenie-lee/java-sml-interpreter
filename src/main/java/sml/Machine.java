@@ -14,6 +14,10 @@ public final class Machine {
 
     private SymbolTable<Method.Identifier, Method> program;
 
+    /**
+     * Contains the current method name (with list of instructions), its arguments and local variables,
+     * the operand stack and the program counter (the index of the instruction to be executed next)
+     */
     // The current frame contains the current method name (with a list of instructions),
     // its arguments and local variables, the operand stack and
     // the program counter (the index of the instruction to be executed next)
@@ -73,7 +77,7 @@ public final class Machine {
             }
             // no need to initialise local variables as it is already done
             // in the constructor of Frame
-            // TODO: explain where exactly do local variables get their default value (0)
+            // Local variables do not have a default value of 0. The default value is empty Optional.
         }
         return Optional.of(newFrame);
     }

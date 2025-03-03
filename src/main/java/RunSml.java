@@ -1,7 +1,13 @@
+import com.sun.java.accessibility.util.Translator;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sml.*;
+
 
 import java.io.IOException;
 import java.util.Collection;
+
+import org.springframework.beans.factory.BeanFactory;
+
 
 public class RunSml {
     /**
@@ -16,11 +22,10 @@ public class RunSml {
         }
 
         try {
-            InterpreterFactory factory = InterpreterFactory.getInstance();
+            BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
 
-            Translator t = factory.getTranslator();
-            InstructionFactory instructionFactory = factory.getInstructionFactory();
-            t.setInstructionFactory(instructionFactory);
+            TranslatorFactory t = (TranslatorFactory) factory.getBean("translator");
+
             Collection<Method> instructions = t.readAndTranslate(args[0]);
             Machine m = new Machine();
             m.setProgram(instructions);

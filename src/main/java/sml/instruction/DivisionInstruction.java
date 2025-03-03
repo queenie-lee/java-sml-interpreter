@@ -1,9 +1,8 @@
 package sml.instruction;
 
-import sml.BadProgramError;
 import sml.Label;
 
-public class DivisionInstruction extends CalculateInstruction {
+public non-sealed class DivisionInstruction extends CalculateInstruction {
     public static final String OP_CODE = "div";
 
     /**
@@ -14,10 +13,5 @@ public class DivisionInstruction extends CalculateInstruction {
      */
     public DivisionInstruction(Label label) {
         super(label, OP_CODE);
-    }
-
-    @Override
-    protected int calculate(int value1, int value2) {
-        return value1 / value2;
     }
 }

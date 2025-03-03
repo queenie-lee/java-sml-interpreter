@@ -3,16 +3,31 @@ package sml;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: write JavaDoc for the class
-
+/**
+ * Part of the stack, created by a method invocation.
+ * A frame stores:
+ * * values of method arguments and local variables
+ * * operands of the instruction in the operand stack
+ * * the value of the program counter
+ */
 public class Frame {
     private final Method method;
     private int programCounter; // mutable
 
-    // TODO: The three data structures below contain mutable components.
-    //       Explain what parts of the data structure are mutable (and what are the mutator methods).
+    /**
+     * The value of each argument is mutable.
+     * The mutator methods are arguments and variable
+     * */
     private final SymbolTable<Variable.Identifier, Variable> arguments;
+    /**
+     * The value of each variable is mutable
+     * The mutator method are localVariables and variable
+     * */
     private final SymbolTable<Variable.Identifier, Variable> localVariables;
+    /**
+     * The values in the stack are mutable
+     * The mutator methods are pop and push
+     * */
     private final Deque<Integer> stack;
 
     private final Frame invoker;

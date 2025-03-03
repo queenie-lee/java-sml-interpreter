@@ -1,16 +1,20 @@
 package sml;
 
-// TODO: write JavaDoc for the class
-
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
  * Represents an abstract instruction.
+ * The general form of the instruction is: [label:] opcode parameter-list
+ * <b>label</b>: the optional label for the instruction. Other instructions may "jump" to this label.
+ * <b>opcode</b>: the actual instruction name (operation code).
+ * <b>parameter-list</b>: the comma-separated list of parameters for the instruction. These can be <b>integers</b>,
+ * <b>variables</b>, <b>labels</b> for branching instructions, and <b>method names</b> used for method invocation.
  *
  * @author Queenie Lee
  */
+
 public abstract class Instruction {
     protected final Label label;
     protected final String opcode;

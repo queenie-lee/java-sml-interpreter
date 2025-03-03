@@ -4,15 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * This class ....
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author ...
+ * @author Queenie Lee
  */
-public final class Translator {
+@Component("translator")
+public final class SMLTranslator implements TranslatorFactory {
 
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
@@ -38,20 +41,13 @@ public final class Translator {
         }
     }
 
-    private InstructionFactory factory;
+    @Autowired
+    private InstructionFactory instructionFactory = null;
 
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
-    public void setInstructionFactory(InstructionFactory factory) {
-        this.factory = factory;
-    }
-
     public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
-        if (factory == null) {
-            throw new RuntimeException(
-                    "You must set the property factory of class: " + getClass().getName());
-        }
 
         Collection<Method> methods = new ArrayList<>();
 
@@ -114,19 +110,7 @@ public final class Translator {
             String word = scan();
             instruction.add(word);
         }
-        return factory.createInstruction(label, instruction);
-
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
-    }
-
-    private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPERS = Map.of(
-            boolean.class, Boolean.class,
-            int.class, Integer.class,
-            void.class, Void.class);
-
-    private static Class<?> wrap(Class<?> theClass) {
-        return PRIMITIVE_WRAPPERS.getOrDefault(theClass, theClass);
+        return instructionFactory.createInstruction(label, instruction);
     }
 
     private String getLabel() {

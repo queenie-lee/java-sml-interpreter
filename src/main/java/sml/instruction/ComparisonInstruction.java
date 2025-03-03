@@ -4,10 +4,15 @@ import sml.*;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
-public abstract class ComparisonInstruction extends Instruction  {
+public sealed abstract class ComparisonInstruction extends Instruction
+        permits CompareEqualInstruction, CompareGreaterThanInstruction {
 
     protected final Label branchLabel;
+    int value1;
+    int value2;
+
     /**
      * Constructor: an instruction with a label and an opcode
      * (opcode must be an operation of the language)
@@ -29,13 +34,18 @@ public abstract class ComparisonInstruction extends Instruction  {
     @Override
     public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
-        int value2 = frame.pop();
-        int value1 = frame.pop();
-        boolean result = compare(value1, value2);
+        ComparisonInstruction instruction = this;
+        this.value2 = frame.pop();
+        this.value1 = frame.pop();
+        boolean result = compare.apply(instruction);
         return result ? Optional.of(frame.jumpTo(branchLabel)) : Optional.of(frame.advance());
     }
 
-    protected abstract boolean compare(int value1, int value2);
+    Function<ComparisonInstruction, Boolean> compare = c ->
+            switch (c) {
+                case CompareEqualInstruction eq -> eq.value1 == eq.value2;
+                case CompareGreaterThanInstruction gt -> gt.value1 > gt.value2;
+            };
 
     /**
      * Returns a string representation of the operands.

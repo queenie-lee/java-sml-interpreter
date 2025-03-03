@@ -3,10 +3,18 @@ package sml;
 import java.util.Objects;
 import java.util.Optional;
 
-// TODO: Write JavaDoc for the class
-
+/**
+ * Represents a variable within an instruction
+ *
+ * @author Queenie Lee
+ */
 public class Variable {
 
+    /**
+     * The variable name is wrapped within the variable identifier record class, ensuring type safety.
+     * This provides better code readability and ensures related errors can be caught at compile time.
+     * @param name name of the variable
+     */
     public record Identifier(String name) {
         public Identifier {
             Objects.requireNonNull(name);

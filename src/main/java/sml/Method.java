@@ -7,12 +7,24 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-// TODO: Write JavaDoc for the class
-
+/**
+ * A piece of code called using a name starting with an <b>@</b> label.
+ * Data is passed into it to be operated on (using arguments).
+ * It can optionally return data (the return value).
+ *
+ * @author Queenie Lee
+ */
 public class Method {
-
+    /**
+     * The method name is wrapped within the Label record class, ensuring type safety.
+     * This provides better code readability and ensures related errors can be caught at compile time.
+     * @param name name of the method
+     */
     public record Identifier(String name) {
 
+        /**
+         * @param name name of the method, which <b>always</b> starts with an <b>@</b> label.
+         */
         public Identifier {
             if (name.charAt(0) != '@')
                 throw new IllegalArgumentException("Method identifier name must start with @");
@@ -31,6 +43,12 @@ public class Method {
     private final List<Instruction> instructions;
     private final SymbolTable<Label, Integer> labels;
 
+    /**
+     * Constructor: a method with a name, list of arguments and list of instructions
+     * @param name name of the function
+     * @param arguments arguments
+     * @param instructions instructions - must contain at least one instruction
+     */
     public Method(Identifier name, List<Variable.Identifier> arguments, List<Instruction> instructions) {
         this.name = name;
         this.arguments = List.copyOf(arguments);
