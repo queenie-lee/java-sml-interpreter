@@ -29,7 +29,6 @@ public class PushInstruction extends Instruction {
     public Optional<Frame> execute(Machine machine) throws BadProgramError {
         Frame frame = machine.frame();
         frame.push(value);
-//        System.out.println(value); // TODO: used for debugging - delete before submission
         return Optional.of(frame.advance());
     }
 

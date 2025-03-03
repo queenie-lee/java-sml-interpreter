@@ -6,8 +6,17 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
+/**
+ * Creates the program's instructions
+ * @author Queenie Lee
+ */
 @Component("instruction-factory")
 public class SMLInstructionFactory implements InstructionFactory {
+
+    /**
+     * The public variable used in the instruction classes, representing the actual instruction name (operation code)
+     */
+    private final String OP_CODE = "OP_CODE";
 
     private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPERS = Map.of(
             boolean.class, Boolean.class,
@@ -16,10 +25,20 @@ public class SMLInstructionFactory implements InstructionFactory {
 
     private final List<Class<?>> instructionClasses;
 
+    /**
+     * The list of instruction classes is defined in the resources file (beans.xml)
+     * @param instructionClasses list of instruction classes used in the SML program
+     */
     public SMLInstructionFactory(List<Class<?>> instructionClasses) {
         this.instructionClasses = instructionClasses;
     }
-
+    /**
+     * Returns a program instruction
+     * @param label optional label (can be null)
+     * @param programInstruction list containing data from a single instruction
+     * @return a program instruction
+     * @throws BadProgramError should not occur these should have been checked prior to calling this method
+     */
     @Override
     public Instruction createInstruction(Label label, List<String> programInstruction) throws BadProgramError {
         Field[] fields;
@@ -28,7 +47,6 @@ public class SMLInstructionFactory implements InstructionFactory {
         if (opcode.isEmpty())
             return null;
 
-        String OP_CODE = "OP_CODE";
         for (Class<?> instruction : instructionClasses) {
             fields = instruction.getDeclaredFields();
             for (Field field : fields) {
@@ -51,7 +69,17 @@ public class SMLInstructionFactory implements InstructionFactory {
         return null;
     }
 
-    private static Instruction buildInstruction(Label label, List<String> parameterList, Class<?> className) throws BadProgramError {
+    /**
+     * Returns an instruction subclass
+     * @param label optional label (can be null)
+     * @param parameterList
+     * @param className instruction class to be created
+     * @return an instruction subclass
+     * @throws BadProgramError if no constructors match the number of arguments, the arguments do not match the
+     * required parameter type, or null arguments are passed into non-null parameters
+     */
+    private static Instruction buildInstruction(Label label, List<String> parameterList, Class<?> className)
+            throws BadProgramError {
 
         Constructor<?> constructor = null;
         int numConstructorParams = parameterList.size() + 1;

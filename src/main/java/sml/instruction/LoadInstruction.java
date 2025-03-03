@@ -44,7 +44,6 @@ public class LoadInstruction extends Instruction {
                         () -> new BadProgramError("The variable " + variable.name() +
                                 " does not contain a value."));
         frame.push(variable_value);
-//        System.out.println(variable_value); // TODO: used for debugging - delete before submission
         return Optional.of(frame.advance());
     }
 

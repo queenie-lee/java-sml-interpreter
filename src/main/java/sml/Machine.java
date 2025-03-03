@@ -32,9 +32,6 @@ public final class Machine {
             Frame f = frame.get();
             Instruction instruction = f.currentInstruction();
             System.out.println("[" + f + "] " + instruction);
-            // TODO: Add exception handling for missing labels, etc.
-            //       Produce user-friendly error messages.
-            //       You may need to extend the functionality of the exception classes.
             try {
                 frame = instruction.execute(this);
             } catch (BadProgramError ex) {
@@ -89,7 +86,7 @@ public final class Machine {
      * @return pretty formatted version of the code.
      */
     @Override
-    public String toString() { //TODO: fix toString?
+    public String toString() {
         return "Machine: " +
                 "Program: " + program.toString() +
                 ", Frame: " + frame.toString();

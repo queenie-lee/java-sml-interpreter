@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * This class ....
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
@@ -47,6 +46,13 @@ public final class SMLTranslator implements TranslatorFactory {
     private static final String ITEM_SEPARATOR = ",";
     private static final String METHOD_LABEL = "@";
 
+    /**
+     * Returns a collection of methods used in the program
+     * @param fileName name of the file containing the program text
+     * @return a collection of methods used in the program
+     * @throws IOException if file does not exist
+     * @throws BadProgramError if there is an issue within the file program text
+     */
     public Collection<Method> readAndTranslate(String fileName) throws IOException, BadProgramError {
 
         Collection<Method> methods = new ArrayList<>();

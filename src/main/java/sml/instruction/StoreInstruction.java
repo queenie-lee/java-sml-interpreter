@@ -42,7 +42,6 @@ public class StoreInstruction extends Instruction {
         Frame frame = machine.frame();
         var variable_value = frame.pop();
         frame.variable(variable).store(variable_value);
-//        System.out.println(variable_value); // TODO: used for debugging - delete before submission
         return Optional.of(frame.advance());
     }
 

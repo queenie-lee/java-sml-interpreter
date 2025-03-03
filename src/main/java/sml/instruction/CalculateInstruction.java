@@ -6,7 +6,11 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Calculate Instruction is an abstract class for all calculation-type subclasses.
+ * An abstract class for all calculation-type subclasses.
+ * The calculation is performed on two integer variables, value1 and value2.
+ * It is sealed, only allowing the classes mentioned after the permits clause to extend from this class.
+ *
+ * @author Queenie Lee
  */
 public sealed abstract class CalculateInstruction extends Instruction
         permits AdditionInstruction, DivisionInstruction, MultiplicationInstruction, SubtractionInstruction {
