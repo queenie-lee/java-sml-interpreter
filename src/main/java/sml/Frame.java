@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Part of the stack, created by a method invocation.
+ * <p>Part of the stack, created by a method invocation.</p>
  * A frame stores:
  * * values of method arguments and local variables
  * * operands of the instruction in the operand stack

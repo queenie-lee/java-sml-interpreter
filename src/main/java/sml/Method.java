@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * A piece of code called using a name starting with an <b>@</b> label.
+ * <p>A piece of code called using a name starting with an <b>@</b> label.</p>
  * Data is passed into it to be operated on (using arguments).
  * It can optionally return data (the return value).
  *

@@ -48,7 +48,6 @@ class GotoInstructionTest {
                 List.of(), List.of(ins0, ins1));
         machine.setProgram(List.of(m));
         LabelNotFoundException ex = assertThrows(LabelNotFoundException.class, () ->  ins0.execute(machine));
-        // TODO: improve the test by adding fields for the label and method in the exception class
         assertEquals("Label L2 not found in main", ex.getMessage());
     }
 }

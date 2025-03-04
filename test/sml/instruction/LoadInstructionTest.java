@@ -4,14 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import sml.*;
 
-import java.io.PrintStream;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,7 +54,6 @@ public class LoadInstructionTest {
         BadProgramError ex = assertThrows(BadProgramError.class, () -> ins0.execute(machine));
 
         assertEquals("The variable " + variable.name() + " does not contain a value.", ex.getMessage());
-////        // TODO: improve the test by adding fields for the label and method in the exception class
     }
 
 }

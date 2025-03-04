@@ -54,7 +54,7 @@ public final class Machine {
 
 
     public Frame frame() {
-        return frame.get();
+        return frame.orElse(null);
     }
 
     public Optional<Frame> newFrameForMethodInvocation(Method.Identifier methodName) throws BadProgramError {

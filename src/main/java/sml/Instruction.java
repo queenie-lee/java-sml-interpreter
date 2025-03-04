@@ -5,13 +5,13 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * Represents an abstract instruction.
+ * <p>Represents an abstract instruction.</p>
  * The general form of the instruction is: [label:] opcode parameter-list
  * <b>label</b>: the optional label for the instruction. Other instructions may "jump" to this label.
  * <b>opcode</b>: the actual instruction name (operation code).
  * <b>parameter-list</b>: the comma-separated list of parameters for the instruction. These can be <b>integers</b>,
  * <b>variables</b>, <b>labels</b> for branching instructions, and <b>method names</b> used for method invocation.
- *
+ * <p>
  * Note that all classes extending from instruction must contain a public variable <b>OP_CODE</b> (operation code)
  * representing the actual instruction name.
  * @author Queenie Lee

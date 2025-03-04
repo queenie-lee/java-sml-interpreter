@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Used to store the program's parameters and their corresponding values.
+ * <p>Used to store the program's parameters and their corresponding values.</p>
  *
  * @param <K> the parameter
  * @param <V> the value of the parameter

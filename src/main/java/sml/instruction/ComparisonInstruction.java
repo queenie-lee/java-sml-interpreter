@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * An abstract class for all comparison-type subclasses.
+ * <p>An abstract class for all comparison-type subclasses.</p>
  * The comparison is performed on two integer variables, value1 and value2.
  * It is sealed, only allowing the classes mentioned after the permits clause to extend from this class.
  *
@@ -33,7 +33,9 @@ public sealed abstract class ComparisonInstruction extends Instruction
     }
 
     /**
-     * Executes the instruction in the given machine.
+     * <p>Executes the instruction in the given machine.</p>
+     * In future development, an abstract class can be created between the instruction, the comparison and calculate
+     * instruction classes, to further avoid code duplication.
      *
      * @param machine the machine the instruction runs on
      * @return the new frame with an update instruction index
@@ -48,6 +50,11 @@ public sealed abstract class ComparisonInstruction extends Instruction
         return result ? Optional.of(frame.jumpTo(branchLabel)) : Optional.of(frame.advance());
     }
 
+    /**
+     * This helper method performs pattern matching on a switch expression, applying the comparison based on the
+     * object's Instruction subclass. It is obligatory to add a new case below if any extensions (i.e. new subclasses)
+     * are added to this class.
+     */
     Function<ComparisonInstruction, Boolean> compare = c ->
             switch (c) {
                 case CompareEqualInstruction eq -> eq.value1 == eq.value2;

@@ -7,7 +7,8 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 /**
- * Creates the program's instructions
+ * <p>Creates the SML program's instructions</p>
+ * The general form of an SML instruction is: [label:] opcode parameter-list
  * @author Queenie Lee
  */
 @Component("instruction-factory")
@@ -72,7 +73,7 @@ public class SMLInstructionFactory implements InstructionFactory {
     /**
      * Returns an instruction subclass
      * @param label optional label (can be null)
-     * @param parameterList
+     * @param parameterList list of parameters
      * @param className instruction class to be created
      * @return an instruction subclass
      * @throws BadProgramError if no constructors match the number of arguments, the arguments do not match the

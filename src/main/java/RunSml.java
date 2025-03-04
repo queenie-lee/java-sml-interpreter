@@ -1,4 +1,3 @@
-import com.sun.java.accessibility.util.Translator;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sml.*;
 
@@ -23,7 +22,6 @@ public class RunSml {
 
         try {
             BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
-
             TranslatorFactory t = (TranslatorFactory) factory.getBean("translator");
 
             Collection<Method> instructions = t.readAndTranslate(args[0]);

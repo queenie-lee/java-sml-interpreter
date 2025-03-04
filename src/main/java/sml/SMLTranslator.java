@@ -40,6 +40,9 @@ public final class SMLTranslator implements TranslatorFactory {
         }
     }
 
+    /**
+     * Spring injects instructionFactory when the SML translator is created.
+     */
     @Autowired
     private InstructionFactory instructionFactory = null;
 

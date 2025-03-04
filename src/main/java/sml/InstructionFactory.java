@@ -3,7 +3,9 @@ package sml;
 import java.util.List;
 
 /**
- * An interface for creating the program's instructions
+ * <p>A factory method interface for creating the program's instructions</p>
+ * Combined with Dependency Injection, this allows for the program instructions (i.e. different general form)
+ * to be replaced without needing to modify the source code within RunSml.
  * @author Queenie Lee
  */
 public interface InstructionFactory {

@@ -2,7 +2,6 @@ package sml.instruction;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -73,7 +72,6 @@ public class ComparisonInstructionTest {
         machine.frame().push(value2);
 
         LabelNotFoundException ex = assertThrows(LabelNotFoundException.class, () ->  ins0.execute(machine));
-        // TODO: improve the test by adding fields for the label and method in the exception class
         assertEquals("Label " + label + " not found in main", ex.getMessage());
     }
 }

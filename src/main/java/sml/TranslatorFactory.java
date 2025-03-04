@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
- * An interface for the program's translator
+ * <p>A factory method interface for the program's translator</p>
+ * Combined with Dependency Injection, this allows for the program translator to be replaced without needing
+ * to modify the source code within RunSml.
  * @author Queenie Lee
  */
 public interface TranslatorFactory {
