@@ -45,41 +45,29 @@ graph TD
     A[SML Source File] --> B[SMLTranslator]
     B --> C[Machine]
     C --> D[Frame Stack]
-    C --> E[Method Table]
+    D --> E[Method Execution]
     
     B --> F[SMLInstructionFactory]
-    F --> G[Instruction Hierarchy]
+    F --> G{Instruction Type}
     
-    G --> H[CalculateInstruction]
-    G --> I[ComparisonInstruction] 
-    G --> J[Concrete Instructions]
+    G --> H[CalculateInstruction<br/>Sealed Abstract]
+    G --> I[ComparisonInstruction<br/>Sealed Abstract]
+    G --> J[Other Instructions]
     
-    H --> K[AdditionInstruction]
-    H --> L[SubtractionInstruction]
-    H --> M[MultiplicationInstruction]
-    H --> N[DivisionInstruction]
+    H --> K[Math Operations<br/>add, sub, mul, div]
+    I --> L[Comparisons<br/>if_cmpgt, if_cmpeq]
+    J --> M[Stack & Flow<br/>load, store, push<br/>goto, invoke, return, print]
     
-    I --> O[CompareEqualInstruction]
-    I --> P[CompareGreaterThanInstruction]
+    style F fill:#e1f5fe
+    style H fill:#f3e5f5
+    style I fill:#f3e5f5
+    style B fill:#e1f5fe
     
-    J --> Q[LoadInstruction]
-    J --> R[StoreInstruction]
-    J --> S[PrintInstruction]
-    J --> T[GotoInstruction]
+    classDef sealed fill:#f3e5f5,stroke:#9c27b0
+    classDef spring fill:#e1f5fe,stroke:#2196f3
     
-    subgraph Spring DI
-        F
-        B
-    end
-    
-    subgraph Reflection
-        F -.-> G
-    end
-    
-    subgraph Sealed Classes
-        H
-        I
-    end
+    class H,I sealed
+    class F,B spring
 ```
 
 ### Core Components
@@ -359,7 +347,7 @@ Then add to `beans.xml`:
 **Queenie Lee** - Software Developer  
 📧 queenie.lee[at]live.ca  
 🔗 [GitHub Portfolio](https://github.com/queenie-lee)  
-💼 [Project Repository](https://github.com/queenie-lee/piazza-social-api)
+💼 [Project Repository](https://github.com/queenie-lee/java-sml-interpreter)
 
 ## 🙏 Acknowledgements
 
