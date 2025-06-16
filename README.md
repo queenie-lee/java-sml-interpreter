@@ -1,6 +1,6 @@
 # 🖥️ Simple Machine Language (SML) Interpreter
 
-A stack-based virtual machine interpreter written in Java, demonstrating software engineering principles including reflection API, dependency injection, and object-oriented design patterns.
+A stack-based interpreter written in Java, demonstrating software engineering principles including reflection API, dependency injection, and object-oriented design patterns.
 
 ![Java](https://img.shields.io/badge/Java-21-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.3-green)
@@ -25,11 +25,11 @@ A stack-based virtual machine interpreter written in Java, demonstrating softwar
 
 ## 🚀 Project Overview
 
-SML is a simple assembly-like programming language interpreter that operates on a stack-based virtual machine architecture. The project demonstrates object-oriented design principles, reflection usage, and dependency injection patterns.
+SML is a simple assembly-like programming language interpreter that operates on a stack-based execution model. The project demonstrates object-oriented design principles, reflection usage, and dependency injection patterns.
 
 ### Key Features
 
-- **🏗️ Stack-based Virtual Machine**: Implements an execution environment with method frames, operand stacks, and program counters
+- **🏗️ Stack-based Execution**: Implements an execution environment with method frames, operand stacks, and program counters
 - **⚙️ Complete Instruction Set**: Supports arithmetic operations, control flow, method invocation, and variable management
 - **🔍 Reflection-based Instruction Factory**: Uses Java reflection to instantiate instruction objects dynamically
 - **🌱 Spring Dependency Injection**: Uses Spring Framework for component management
@@ -38,7 +38,7 @@ SML is a simple assembly-like programming language interpreter that operates on 
 
 ## 🏗️ Architecture
 
-The interpreter follows a layered architecture:
+The interpreter follows a layered architecture for executing SML programs:
 
 ```mermaid
 graph TD
@@ -229,7 +229,7 @@ src/
 ├── main/java/
 │   ├── RunSml.java                    # Main entry point
 │   └── sml/
-│       ├── Machine.java               # Virtual machine executor
+│       ├── Machine.java               # Interpreter execution engine
 │       ├── Frame.java                 # Execution frame
 │       ├── Instruction.java           # Abstract instruction base
 │       ├── SMLTranslator.java         # Source code parser
@@ -383,3 +383,5 @@ This project demonstrates advanced Java programming concepts within a provided e
 ---
 
 **Built with ❤️ using Java 21, Spring Framework, and Maven** 
+
+Stack-based interpreter for SML assembly language in Java. Features reflection API, Spring dependency injection, sealed classes, and modern design patterns. Demonstrates advanced OOP and enterprise development practices. 
